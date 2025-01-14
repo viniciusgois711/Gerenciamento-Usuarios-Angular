@@ -8,13 +8,15 @@ import {
   PoToolbarModule,
   PoTableModule,
   PoTableColumn,
-  PoButtonModule
+  PoButtonModule,
+  PoTableAction,
+  PoNotificationService
 } from '@po-ui/ng-components';
 
 @Component({
   selector: 'app-table-clientes',
   standalone: true,
-  imports: [PoTableModule, PoButtonModule, RouterLink],
+  imports: [PoTableModule, PoButtonModule,RouterLink],
   templateUrl: './table-clientes.component.html',
   styleUrl: './table-clientes.component.css'
 })
@@ -22,17 +24,28 @@ export class TableClientesComponent implements OnInit{
 
   
   // Objeto a ser manipulado para adiconar no array de clientes
-  cliente = {}
+  cliente = {
+    id:0,
+    nome: '',
+    cnpj: '',
+    nicho: '',
+    cep: '',
+    rua: '',
+    bairro: '',
+    cidade: '',
+  }
 
   // Array de clientes
   clientes: Array<any> = [];
 
-  constructor(private router: Router, private route: ActivatedRoute){}
+  constructor(private router: Router, private route: ActivatedRoute, private notificacao: PoNotificationService){}
 
   ngOnInit(): void {
     let clientesRecuperado = sessionStorage.getItem('clientes');
 
-    this.clientes = clientesRecuperado ? JSON.parse(clientesRecuperado) : '[]';
+    this.clientes = clientesRecuperado ? JSON.parse(clientesRecuperado) : [];
+
+    console.log(this.clientes)
   }
 
   navegarParaFormulario(){
@@ -47,5 +60,23 @@ export class TableClientesComponent implements OnInit{
     {property: 'nicho', label: 'Nicho'},
     {property: 'acoes', label: 'Ações'},
   ];
+
+  public readonly acoes: Array<PoTableAction> = [
+    {label: 'editar',  action: this.editarCliente.bind(this)},
+    {label: 'excluir',  action: this.excluirCliente.bind(this)},
+  ]
+
+  editarCliente(cliente: any){
+    
+  }
+
+  excluirCliente(cliente: any){
+    let indice = this.clientes.findIndex((t:any) => t.id === cliente.id);
+    this.clientes.splice(indice, 1);
+    this.notificacao.success("Cliente removido com sucesso!");
+
+    let clientesString = JSON.stringify(this.clientes);
+    sessionStorage.setItem('clientes', clientesString);
+  }
 
 }

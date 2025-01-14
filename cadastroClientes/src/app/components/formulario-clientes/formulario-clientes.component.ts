@@ -25,10 +25,14 @@ export class FormularioClientesComponent {
 
   // Objeto a ser manipulado para adiconar no array de clientes
   cliente = {
-    id:1,
+    id:0,
     nome: '',
     cnpj: '',
     nicho: '',
+    cep: '',
+    rua: '',
+    bairro: '',
+    cidade: '',
   }
 
   clientes:Array<any> = [];
