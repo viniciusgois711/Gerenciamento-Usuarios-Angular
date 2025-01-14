@@ -6,5 +6,5 @@ import { TableClientesComponent } from './components/table-clientes/table-client
 
 export const routes: Routes = [
     {path: '', component: TableClientesComponent},
-    {path: 'addClientes', component: FormularioClientesComponent}
+    {path: 'formularioClientes', component: FormularioClientesComponent}
 ];

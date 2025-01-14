@@ -39,16 +39,19 @@ export class FormularioClientesComponent {
 
   constructor(private router: Router){}
 
-  adicionarCliente(){
+  salvar(){
     let clientesRecuperados = sessionStorage.getItem('clientes');
 
     this.clientes = clientesRecuperados ? JSON.parse(clientesRecuperados) : [];
 
-    let ultimoId =  this.clientes.reduce((last, cliente) => cliente.id, 0)
-    this.cliente.id = ultimoId+1;
+    if(this.cliente.id == 0){
+      let ultimoId =  this.clientes.reduce((last, cliente) => cliente.id, 0);
 
-    this.clientes.push({...this.cliente});
-    
+      this.cliente.id = ultimoId+1;
+
+      this.clientes.push({...this.cliente});
+    }
+
     let clientesString = JSON.stringify(this.clientes);
     sessionStorage.setItem('clientes', clientesString);
     this.router.navigate([''])

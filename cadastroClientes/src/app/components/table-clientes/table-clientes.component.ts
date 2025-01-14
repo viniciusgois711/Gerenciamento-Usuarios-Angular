@@ -49,7 +49,7 @@ export class TableClientesComponent implements OnInit{
   }
 
   navegarParaFormulario(){
-    this.router.navigate(['/addClientes'])
+    this.router.navigate(['/formularioClientes'])
   }
 
   // Titulos das colunas da tabela
@@ -67,7 +67,9 @@ export class TableClientesComponent implements OnInit{
   ]
 
   editarCliente(cliente: any){
-    
+    let clienteString = JSON.stringify(cliente);
+    sessionStorage.setItem('clienteAlterar', clienteString);
+    this.router.navigate(['formularioClientes'])
   }
 
   excluirCliente(cliente: any){
