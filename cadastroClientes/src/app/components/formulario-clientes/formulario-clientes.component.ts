@@ -22,7 +22,7 @@ import {
   styleUrl: './formulario-clientes.component.css'
 })
 export class FormularioClientesComponent {
-
+  
   // Objeto a ser manipulado para adiconar no array de clientes
   cliente = {
     id:0,
@@ -37,24 +37,48 @@ export class FormularioClientesComponent {
 
   clientes:Array<any> = [];
 
-  constructor(private router: Router){}
+  idAlterar=0;
 
-  salvar(){
+  constructor(private router: Router){
+
+    let state: any = this.router.getCurrentNavigation()?.extras.state;
+
+    if(state){
+      this.idAlterar = state['id']
+    }
+  }
+
+  ngOnInit(){
+
     let clientesRecuperados = sessionStorage.getItem('clientes');
 
     this.clientes = clientesRecuperados ? JSON.parse(clientesRecuperados) : [];
 
+    if(this.idAlterar != 0){
+      let indice = this.clientes.findIndex((c:any) => c.id == this.idAlterar)
+      this.cliente = this.clientes[indice]
+      this.idAlterar = 0;
+    }
+
+  }
+  
+  salvar(){
+    
     if(this.cliente.id == 0){
       let ultimoId =  this.clientes.reduce((last, cliente) => cliente.id, 0);
 
       this.cliente.id = ultimoId+1;
 
       this.clientes.push({...this.cliente});
+    }else{
+      let indice = this.clientes.findIndex((c:any) => c.id == this.idAlterar)
+      this.cliente = this.clientes[indice]
     }
-
+   
     let clientesString = JSON.stringify(this.clientes);
     sessionStorage.setItem('clientes', clientesString);
     this.router.navigate([''])
   }
+
 
 }

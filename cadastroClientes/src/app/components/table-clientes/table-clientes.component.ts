@@ -45,7 +45,6 @@ export class TableClientesComponent implements OnInit{
 
     this.clientes = clientesRecuperado ? JSON.parse(clientesRecuperado) : [];
 
-    console.log(this.clientes)
   }
 
   navegarParaFormulario(){
@@ -67,9 +66,8 @@ export class TableClientesComponent implements OnInit{
   ]
 
   editarCliente(cliente: any){
-    let clienteString = JSON.stringify(cliente);
-    sessionStorage.setItem('clienteAlterar', clienteString);
-    this.router.navigate(['formularioClientes'])
+    // console.log(cliente.id)
+    this.router.navigate(['/formularioClientes'], { state: {id: cliente.id}} )
   }
 
   excluirCliente(cliente: any){
