@@ -5,7 +5,9 @@
     <po-input p-label="Nome: " name="nome" [(ngModel)]="cliente.nome"></po-input>
     <po-input p-label="CNPJ: " name="cnpj" [(ngModel)]="cliente.cnpj"></po-input>
     <po-input p-label="Nicho: " name="nicho" [(ngModel)]="cliente.nicho"></po-input>
-    <po-input p-label="Cep: " name="cep" [(ngModel)]="cliente.cep"></po-input>
+
+    <po-input p-label="Cep: " name="cep" [(ngModel)]="cliente.cep" (keyup)="pesquisarCep()"></po-input>
+    
     <po-input p-label="Rua: " name="rua" [(ngModel)]="cliente.rua"></po-input>
     <po-input p-label="Bairro: " name="bairro" [(ngModel)]="cliente.bairro"></po-input>
     <po-input p-label="Cidade: " name="cidade" [(ngModel)]="cliente.cidade"></po-input>

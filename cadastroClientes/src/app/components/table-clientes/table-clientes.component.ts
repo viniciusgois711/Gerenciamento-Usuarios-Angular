@@ -66,7 +66,6 @@ export class TableClientesComponent implements OnInit{
   ]
 
   editarCliente(cliente: any){
-    // console.log(cliente.id)
     this.router.navigate(['/formularioClientes'], { state: {id: cliente.id}} )
   }
 

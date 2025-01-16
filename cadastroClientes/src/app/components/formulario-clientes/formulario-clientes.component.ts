@@ -1,6 +1,7 @@
 import { Component, ViewChild, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { CepService } from '../../services/cep.service';
 
 import {
   PoMenuItem,
@@ -22,6 +23,8 @@ import {
   styleUrl: './formulario-clientes.component.css'
 })
 export class FormularioClientesComponent {
+
+  endereco: any = {};
   
   // Objeto a ser manipulado para adiconar no array de clientes
   cliente = {
@@ -39,7 +42,7 @@ export class FormularioClientesComponent {
 
   idAlterar=0;
 
-  constructor(private router: Router){
+  constructor(private router: Router, private cepService: CepService){
 
     let state: any = this.router.getCurrentNavigation()?.extras.state;
 
@@ -78,6 +81,23 @@ export class FormularioClientesComponent {
     let clientesString = JSON.stringify(this.clientes);
     sessionStorage.setItem('clientes', clientesString);
     this.router.navigate([''])
+  }
+
+  pesquisarCep(): void{
+
+    if(this.cliente.cep.length === 8){
+      this.cepService.getEnderecoApi(this.cliente.cep).subscribe({
+        next: (response) => {
+          this.endereco = response,
+          this.cliente.rua = this.endereco?.logradouro,
+          this.cliente.bairro = this.endereco?.bairro,
+          this.cliente.cidade = this.endereco?.localidade
+        },
+        error: (error) => {
+          alert("Algo deu errado")
+        }
+      })
+    }
   }
 
 
