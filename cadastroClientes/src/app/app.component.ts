@@ -24,7 +24,6 @@ import {
     FormularioClientesComponent,
     TableClientesComponent,
     
-    
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],

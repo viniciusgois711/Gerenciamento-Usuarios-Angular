@@ -1,12 +1,12 @@
 <h1>Formulario clientes</h1>
-<po-button p-label="Voltar" [routerLink]="['']"></po-button>
 
-<form #form="ngForm">
+<form #form="ngForm" class="po-lg-4">
+    <po-button p-label="Voltar" [routerLink]="['']"></po-button>
     <po-input p-label="Nome: " name="nome" [(ngModel)]="cliente.nome"></po-input>
     <po-input p-label="CNPJ: " name="cnpj" [(ngModel)]="cliente.cnpj"></po-input>
     <po-input p-label="Nicho: " name="nicho" [(ngModel)]="cliente.nicho"></po-input>
 
-    <po-input p-label="Cep: " name="cep" [(ngModel)]="cliente.cep" (keyup)="pesquisarCep()"></po-input>
+    <po-input p-label="Cep: " name="cep" p-mask="99.999-999" [(ngModel)]="cliente.cep" (keyup)="pesquisarCep()"></po-input>
     
     <po-input p-label="Rua: " name="rua" [(ngModel)]="cliente.rua"></po-input>
     <po-input p-label="Bairro: " name="bairro" [(ngModel)]="cliente.bairro"></po-input>
